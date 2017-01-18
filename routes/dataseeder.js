@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var mongojs= require('mongojs');
-var db = mongojs('mongodb://userUDA:lf6kt6lX3aqTqy2q@mongodb/sampledb', ['categoriess']);
+var db = mongojs('mongodb://user5A6:YPO5a7qpMyhnnTsX@mongodb/sampledb', ['categoriess']);
 
 router.get('/',function(req,res,next){
     

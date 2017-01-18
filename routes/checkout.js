@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 var Cart=require('../models/cart');
 var mongojs = require('mongojs');
-var db = mongojs('mongodb://userUDA:lf6kt6lX3aqTqy2q@mongodb/sampledb',['userorders','guestorders','cart']);
+var db = mongojs('mongodb://user5A6:YPO5a7qpMyhnnTsX@mongodb/sampledb',['userorders','guestorders','cart']);
 var validator = require('express-validator');
 //var app=express();
 /* GET users listing. */
