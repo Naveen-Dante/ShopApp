@@ -7,14 +7,14 @@ var bodyParser = require('body-parser');
 var expressHbs = require('express-handlebars');
 var  mongoose = require('mongoose');
 var mongojs= require('mongojs');
-var db = mongojs('mongodb://userUDA:lf6kt6lX3aqTqy2q@mongodb/sampledb', ['categories']);
+var db = mongojs('mongodb://userQPV:I35yuPprSU5F3It0@mongodb/sampledb', ['categories']);
 //var db1=mongojs('mongodb://userUDA:lf6kt6lX3aqTqy2q@mongodb/sampledb',['categories']);
 var async = require("async");
 var session=require('express-session');
 var passport=require('passport');
 var flash=require('connect-flash');
 var MongoStore=require('connect-mongo')(session);
-var validator = require('express-validator')
+var validator = require('express-validator');
 
 var adminRoutes=require('./routes/admin');
 var userRoutes = require('./routes/user');

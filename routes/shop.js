@@ -1,8 +1,8 @@
 var express = require('express');
 var router = express.Router();
 var mongojs= require('mongojs');
-var db = mongojs('mongodb://user5A6:YPO5a7qpMyhnnTsX@mongodb/sampledb', ['products']);
-var db1=mongojs('mongodb://user5A6:YPO5a7qpMyhnnTsX@mongodb/sampledb',['categories']);
+var db = mongojs('mongodb://userQPV:I35yuPprSU5F3It0@mongodb/sampledb', ['products']);
+var db1=mongojs('mongodb://userQPV:I35yuPprSU5F3It0@mongodb/sampledb',['categories']);
 var Cart=require('../models/cart');                      
 
 router.get('/:id',function(req,res,next){
