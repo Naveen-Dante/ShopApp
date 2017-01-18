@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var mongojs= require('mongojs');
-var db = mongojs('shop', ['newtest']);
+var db = mongojs('mongodb://userUDA:lf6kt6lX3aqTqy2q@mongodb/sampledb', ['categoriess']);
 
 router.get('/',function(req,res,next){
     
@@ -272,7 +272,7 @@ router.get('/',function(req,res,next){
  {"title":"Everyone Has A Story","category":"books","dept":"fiction","author":"Savi Sharma","price":120.00,"url":"/images/products/story.jpg","description":"Everyone Has A Story is a story focussing youngsters. Which shows how today we are just passing our life rather than Living. Everyone wants to do something in his life for himself without considering anyone else"}];
     
  for(var i = 0; i< data.length; i++){
-     db.newtest.insert(data[i],function(err,docs){
+     db.categories.insert(data[i],function(err,docs){
          console.log("Inserted data at ",i); 
      });
  }
