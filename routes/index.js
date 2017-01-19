@@ -288,15 +288,7 @@ router.get('/deletewish/:id' , function(req, res, next){
 router.get('/', function(req, res, next) {
   //fetching data from models folder............
     var successMsg = req.flash('success')[0];
-    db1.products.find(function(err, docs){
-        //console.log(docs);
-        var productChunks=[];
-        var chunkSize=3;
-        for(var i=0; i < docs.length; i+=chunkSize){
-            productChunks.push(docs.slice(i, i+chunkSize)) ;  
-        }
-       // console.log(productChunks);
-         res.render('index', { title: 'Shop Online',products: productChunks, successMsg: successMsg, noMessages: !successMsg});
+         res.render('index', { title: 'Shop Online',successMsg: successMsg, noMessages: !successMsg});
     }); 
 });
 
