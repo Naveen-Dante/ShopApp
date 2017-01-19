@@ -38,13 +38,13 @@ router.get('/add-to-cart/:id', function(req,res,next){
     var productId=req.params.id;
     console.log("receiving product id on click:",productId);
     var cart= new Cart(req.session.cart ? req.session.cart: {});
-    db.categories.find({title:productId}, function(err,prod){
+    db.categories.find({_id:productId}, function(err,prod){
         if(err)
         {    
             return res.redirect(req.get('referer'));
         }
         //console.log(prod);
-        cart.add(prod[0], prod[0].title);
+        cart.add(prod[0], prod[0]._id);
         if(req.user){
             console.log("logged in");
         }
@@ -203,7 +203,7 @@ router.get('/wish-list/:id', function(req,res,next){
         }
         if(prod){
             console.log("Wished",prod);
-            wishlist.add(prod[0], prod[0].title);
+            wishlist.add(prod[0], prod[0]._id);
             req.session.wishlist=wishlist;
             refreshWishlist(wishlist, req);
             res.redirect(req.get('referer'));
