@@ -146,6 +146,7 @@ router.post('/?',function(req,res,next){
                 console.log("search not working");
             }
             var searchProducts=[];
+            console.log('data',docs);
             var output="Here are Your Search Results Enjoy Shopping..!";
             var chunkSize=3;
             for(var i=0; i < docs.length; i+=chunkSize){
