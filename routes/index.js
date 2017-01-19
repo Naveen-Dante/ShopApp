@@ -201,12 +201,13 @@ router.get('/wish-list/:id', function(req,res,next){
         {    
             return res.redirect('/');
         }
-        console.log("Wished",prod);
-        wishlist.add(prod[0], prod[0].title);
-        req.session.wishlist=wishlist;
-        refreshWishlist(wishlist, req);
-        res.redirect(req.get('referer'));
-        
+        if(prod){
+            console.log("Wished",prod);
+            wishlist.add(prod[0], prod[0].title);
+            req.session.wishlist=wishlist;
+            refreshWishlist(wishlist, req);
+            res.redirect(req.get('referer'));
+        }  
     });
     
 });
