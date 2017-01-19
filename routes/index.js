@@ -236,9 +236,8 @@ router.get('/', function(req, res, next) {
         for(var i=0; i < docs.length; i+=chunkSize){
             productChunks.push(docs.slice(i, i+chunkSize));
         }
-        res.render('shop/shop',{title: deptName,layout:"other",category: deptName, dept:deptName,sub_category:subdept,products: productChunks});
+        res.render('index', { title: 'Shop Online',products:productChunks, successMsg: successMsg, noMessages: !successMsg});   
     });
-    res.render('index', { title: 'Shop Online',products:productChunks, successMsg: successMsg, noMessages: !successMsg});
 });
 
 
