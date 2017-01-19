@@ -3,18 +3,13 @@ var router = express.Router();
 var mongojs= require('mongojs');
 var ObjectId = mongojs.ObjectId;
 //var ObjectId = require("mongojs").ObjectId;
-var db = mongojs('mongodb://admin:admin@ds117859.mlab.com:17859/heroku_d1f53dlz', ['categories','cart','wishlist']);
+var db = mongojs('mongodb://admin:admin@ds117859.mlab.com:17859/heroku_d1f53dlz', ['categories','cart','wishlist','featured']);
 var async = require('async');
 var Cart=require('../models/cart');
 var searchBar=require('../models/searchResult');
 var Wishlist=require('../models/wishlist');
 var deleteCart= require('../models/delete');
-var db1 = mongojs('shop',['products']);
-/* GET home page. */
 
-
-
-//---------------------------------------
 function refreshCart(cart, req){
     if(req.isAuthenticated()){
         if(cart.generateArray().length>0){
@@ -38,26 +33,6 @@ function refreshCart(cart, req){
         }
     }
 }
-/*
-router.get('/add',function(req,res,next){
-    res.render('addproduct',{layout:'other'});
-});
-
-router.post('/add',function(req,res,next){
-    var product = JSON.parse(req.body.db_data);
-    console.log("In data");
-    console.log(product);
-    db.categories.insert(product,function(err,docs){
-       if(err){
-           console.log('error');
-       }
-        console.log("After inserting: ",docs);
-    });
-    console.log("Done");
-    res.redirect(req.get('referer'));
-});
-*/
-
 
 router.get('/add-to-cart/:id', function(req,res,next){
     var productId=req.params.id;
@@ -166,50 +141,6 @@ router.post('/?',function(req,res,next){
         res.render('shop/search', { title: 'Search', content:output, layout: "other",products: searchProducts});
     });
 });
-router.get('/search/:id', function(req,res,next){
-    var searchTxt=req.params.id;
-    var searchArray=[];
-    var searchArray=searchTxt.split(" ");
-    var mixArr=[];  
-    var done=0;
-    var calls = [];
-    searchArray.forEach(function(name){
-        calls.push(function(callback) {
-        //console.log("input to search after split",name)
-        db.categories.find({title: new RegExp(name,"i")}, function(err, docs) {
-            if(err){
-                return callback(err);
-            }
-            //console.log('receiving list of search elements',docs);
-            for(var j=0;j<docs.length;j+=1){
-                mixArr.push(docs[j]);
-            }
-            callback(null, mixArr);
-            });
-        })
-    });
-    async.parallel(calls, function(err, result) {
-        if (err)
-            return res.redirect('/');
-        var new_arr=[];
-        var lookup  = {};
-        for (var i in mixArr) {
-            lookup[mixArr[i]["title"]] = mixArr[i];
-        }
-        for (i in lookup) {
-            new_arr.push(lookup[i]);
-        }
-        //console.log("new arr:",new_arr);  
-        var searchProducts=[];
-        var output="Here are Your Search Results Enjoy Shopping..!";
-        var chunkSize=3;
-        for(var i=0; i < new_arr.length; i+=chunkSize){
-            searchProducts.push(new_arr.slice(i, i+chunkSize)) ;  
-        }
-        res.render('index', { title: 'Search', content:output, layout: "other",products: searchProducts});
-    });
-    //console.log("mixArray:",mixArr,mixArr.length); 
-});
 
 function refreshWishlist(wishlist, req){
     if(req.isAuthenticated()){
@@ -258,21 +189,6 @@ router.get('/wish-list/:id', function(req,res,next){
     
 });
 
-router.get('/add',function(req,res,next){
-    res.render('addproduct',{layout:'other'});
-});
-
-router.post('/add',function(req,res,next){
-    var product = JSON.parse(req.body.db_data);
-    console.log(product);
-    db.categories.insert(product,function(err,docs){
-       if(err){
-           console.log('error');
-       } 
-    });
-    res.redirect(req.get('referer'));
-});
-
 router.get('/deletewish/:id' , function(req, res, next){
     var product = req.params.id;
     var wishlist = new Wishlist(req.session.wishlist ? req.session.wishlist: {});
@@ -283,16 +199,6 @@ router.get('/deletewish/:id' , function(req, res, next){
     }
     refreshWishlist(wishlist, req);
     res.redirect(req.get('referer'));
-});
-
-router.get('/', function(req, res, next) {
-  //fetching data from models folder............
-    var successMsg = req.flash('success')[0];
-         res.render('index', { title: 'Shop Online',successMsg: successMsg, noMessages: !successMsg});
-});
-
-router.post('/:id',function(req,res,next){
-   console.log('In post on search'); 
 });
 
 router.get('/:id',function(req,res,next){
@@ -317,6 +223,23 @@ router.get('/:id',function(req,res,next){
         }
         res.render('shop/shop',{title: deptName,layout:"other",category: deptName, dept:deptName,sub_category:subdept,products: productChunks});
     });
+});
+
+router.get('/', function(req, res, next) {
+    
+    var successMsg = req.flash('success')[0];
+    db.categories.find({category:deptName},function(err, docs){
+        if(err){
+           return res.redirect('/');
+        }
+        var productChunks=[];
+        var chunkSize=3;
+        for(var i=0; i < docs.length; i+=chunkSize){
+            productChunks.push(docs.slice(i, i+chunkSize));
+        }
+        res.render('shop/shop',{title: deptName,layout:"other",category: deptName, dept:deptName,sub_category:subdept,products: productChunks});
+    });
+    res.render('index', { title: 'Shop Online',products:productChunks, successMsg: successMsg, noMessages: !successMsg});
 });
 
 
