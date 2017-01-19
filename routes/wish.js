@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var mongojs= require('mongojs');
-var db = mongojs('mongodb://userQPV:I35yuPprSU5F3It0@mongodb/sampledb', ['products']);
+var db = mongojs('mongodb://admin:admin@ds117859.mlab.com:17859/heroku_d1f53dlz', ['products']);
 var Wishlist=require('../models/wishlist');
 /*router.post('/wishlist', function(req, res) {
     

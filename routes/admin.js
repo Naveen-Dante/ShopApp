@@ -3,7 +3,7 @@ var router = express.Router();
 var csrf = require('csurf');
 var passport = require('passport');
 var mongojs = require('mongojs');
-var db = mongojs('mongodb://user5A6:YPO5a7qpMyhnnTsX@mongodb/sampledb',['categories','userorders','guestorders','users']);
+var db = mongojs('mongodb://admin:admin@ds117859.mlab.com:17859/heroku_d1f53dlz',['categories','userorders','guestorders','users']);
 var csrfProtection = csrf();
 
 router.use(csrfProtection);

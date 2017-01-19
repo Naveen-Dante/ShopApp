@@ -7,7 +7,7 @@ var bodyParser = require('body-parser');
 var expressHbs = require('express-handlebars');
 var  mongoose = require('mongoose');
 var mongojs= require('mongojs');
-var db = mongojs('mongodb://userQPV:I35yuPprSU5F3It0@mongodb/sampledb', ['categories']);
+var db = mongojs('mongodb://admin:admin@ds117859.mlab.com:17859/heroku_d1f53dlz', ['categories']);
 //var db1=mongojs('mongodb://userUDA:lf6kt6lX3aqTqy2q@mongodb/sampledb',['categories']);
 var async = require("async");
 var session=require('express-session');
@@ -31,7 +31,7 @@ var dataseeder = require('./routes/dataseeder');
 
 var app = express();
 require('./config/passport');
-mongoose.connect('mongodb://userUDA:lf6kt6lX3aqTqy2q@mongodb/sampledb'); 
+mongoose.connect('mongodb://admin:admin@ds117859.mlab.com:17859/heroku_d1f53dlz'); 
 app.engine('.hbs', expressHbs({defaultLayout: 'layout', extname: '.hbs'}));
 app.set('view engine', 'hbs');
 
@@ -52,7 +52,7 @@ app.use(session({
         host: '127.0.0.1',
         port: '27017',
         db: 'shop',
-        url: 'mongodb://localhost:27017/shop'
+        url: 'mongodb://admin:admin@ds117859.mlab.com:17859/heroku_d1f53dlz'
         }),
     cookie:{maxAge: 180*60*1000}
 }));
