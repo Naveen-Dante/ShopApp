@@ -5,9 +5,9 @@ var db = mongojs('mongodb://admin:admin@ds117859.mlab.com:17859/heroku_d1f53dlz'
 
 
 router.get('/:id', function(req, res, next) {
-    var productid = req.params.id;
+    var productid = parseInt(req.params.id);
     console.log(productid);
-    db.categories.findOne({title:productid},function(err,docs){
+    db.categories.findOne({_id:productid},function(err,docs){
         if(err){
             res.redirect('/');
         }

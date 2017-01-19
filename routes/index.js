@@ -35,16 +35,16 @@ function refreshCart(cart, req){
 }
 
 router.get('/add-to-cart/:id', function(req,res,next){
-    var productId=req.params.id;
+    var productId=parseInt(req.params.id);
     console.log("receiving product id on click:",productId);
     var cart= new Cart(req.session.cart ? req.session.cart: {});
-    db.categories.find({_id:productId}, function(err,prod){
+    db.categories.findOne({_id:productId}, function(err,prod){
         if(err)
         {    
             return res.redirect(req.get('referer'));
         }
         //console.log(prod);
-        cart.add(prod[0], prod[0]._id);
+        cart.add(prod, prod._id);
         if(req.user){
             console.log("logged in");
         }
@@ -196,34 +196,18 @@ router.get('/wish-list/:id', function(req,res,next){
     var productId=req.params.id;
     console.log("receiving product id on click:",productId);
     var query = {_id: parseInt(req.params.id)};
-    var query1 = {"_id": parseInt(req.params.id)};
-    console.log(query);
-    var wishlist= new Wishlist(req.session.wishlist ? req.session.wishlist: {});
+       var wishlist= new Wishlist(req.session.wishlist ? req.session.wishlist: {});
     db.categories.findOne(query,function(err,prod){
         if(err)
         {    
             return res.redirect('/');
         }
         console.log("In findOne",prod);
-        
-            //wishlist.add(prod, prod.title);
-            //req.session.wishlist=wishlist;
-            //refreshWishlist(wishlist, req);
-            //res.redirect(req.get('referer'));
-          
+        wishlist.add(prod, prod.title);
+        req.session.wishlist=wishlist;
+        refreshWishlist(wishlist, req);
+        res.redirect(req.get('referer'));          
     });
-    db.categories.find(query,function(err,prod){
-        console.log("In Find",prod);
-    });
-    db.categories.find(query1,function(err,prod){
-        console.log("In Find with quotes",prod);
-    });
-    db.categories.findOne(query1,function(err,prod){
-        console.log("In FindOne with quotes",prod);
-    });
-    
-    
-    
 });
 
 router.get('/deletewish/:id' , function(req, res, next){

@@ -17,27 +17,27 @@
                 {{#each products}}
                     <div class="row" id="cart-row">
                         <div class="col-md-3"><!-- image div -->
-                            <a href="/product/{{this.title}}"><img src="{{this.item.url}}" alt="No picture available" width="230px" ></a>
+                            <a href="/product/{{this._id}}"><img src="{{this.item.url}}" alt="No picture available" width="230px" ></a>
                         </div>
                         <div class="col-md-3"><!-- product details-->
-                            <a href="/product/{{this.title}}"><h5><span style="text-transform: none; font-size:25px">{{this.item.title}}</span></h5></a>
+                            <a href="/product/{{this._id}}"><h5><span style="text-transform: none; font-size:25px">{{this.item.title}}</span></h5></a>
                         </div>
                         <div class="col-md-6">
                             <div class="row">
                                 <div class="col-md-1">
-                                    <a href="/reduce/{{this.item.title}}"><button type="button"><i class="fa fa-minus"></i></button></a>
+                                    <a href="/reduce/{{this.item._id}}"><button type="button"><i class="fa fa-minus"></i></button></a>
                                 </div>
                                 <div class="col-md-1">
                                     <div class="badge" id="quantity" style="font-size:15px"><b>{{this.qty}}</b></div>
                                 </div>
                                 <div class="col-md-1">
-                                    <a href="/increase/{{this.item.title}}"><button type="button"><i class="fa fa-plus"></i></button></a>
+                                    <a href="/increase/{{this.item._id}}"><button type="button"><i class="fa fa-plus"></i></button></a>
                                 </div>
 				                <div class="col-md-6 ">
 				                    <h6 align="right"><strong style="font-size:20px">Rs.{{this.price}} <span class="text-muted"></span></strong></h6>
 				                </div>
 				                <div class="col-md-2">
-				                    <a href="/delete/{{this.item.title}}" class="pull-left"><button type="button" class="btn btn-link btn-xs"><i class="fa fa-trash-o fa-2x" aria-hidden="true"></i></button></a>
+				                    <a href="/delete/{{this.item._id}}" class="pull-left"><button type="button" class="btn btn-link btn-xs"><i class="fa fa-trash-o fa-2x" aria-hidden="true"></i></button></a>
                                 </div>
                             </div>
                         </div>
