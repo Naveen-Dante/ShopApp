@@ -197,12 +197,13 @@ router.get('/wish-list/:id', function(req,res,next){
     console.log("receiving product id on click:",productId);
     
     var wishlist= new Wishlist(req.session.wishlist ? req.session.wishlist: {});
-    db.categories.findOne({_id:productId},function(err,prod){
+    db.categories.findOne({'_id':productId},function(err,prod){
         if(err)
         {    
             return res.redirect('/');
         }
         console.log("Wished",prod);
+        return res.redirect('/');
             //wishlist.add(prod, prod.title);
             //req.session.wishlist=wishlist;
             //refreshWishlist(wishlist, req);
