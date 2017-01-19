@@ -142,6 +142,9 @@ router.post('/?',function(req,res,next){
         
     });*/
     db.test.find({$text:{$search:searchTxt}},{score:{$meta:"textScore"}}).sort({score:{$meta:"textScore"}},function(err, docs){
+            if(err){
+                console.log("search not working");
+            }
             var searchProducts=[];
             var output="Here are Your Search Results Enjoy Shopping..!";
             var chunkSize=3;
