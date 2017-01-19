@@ -170,16 +170,14 @@ function refreshWishlist(wishlist, req){
             db.wishlist.find({email:req.user.email}, function(err, wishdata){
                 if(wishdata){
                     db.wishlist.update({email:req.user.email},{email:req.user.email, userwishlist:wishlist});
-                    console.log("In Wishlist Update")
+                    //console.log("In Wishlist Update")
                 }
             });
             db.wishlist.insert({email:req.user.email,userwishlist:wishlist}, function(err, data){
                 if(err){
                     throw err;
                 }
-                console.log("adding to list");
-                console.log(data);
-                console.log(req.session.wishlist);
+                
             });
         }
         else{
@@ -193,22 +191,28 @@ function refreshWishlist(wishlist, req){
 }
 
 router.get('/wish-list/:id', function(req,res,next){
-    var productId=req.params.id;
-    console.log("receiving product id on click:",productId);
-    var query = {_id: parseInt(req.params.id)};
-       var wishlist= new Wishlist(req.session.wishlist ? req.session.wishlist: {});
-    db.categories.findOne(query,function(err,prod){
+    var productId=parseInt(req.params.id);
+    //console.log("receiving product id on click:",productId);
+    var wishlist= new Wishlist(req.session.wishlist ? req.session.wishlist: {});
+    db.categories.findOne({_id:parseInt(req.params.id)}, function(err,prod){
         if(err)
         {    
             return res.redirect('/');
         }
-        console.log("In findOne",prod);
-        wishlist.add(prod, prod.title);
+        
+        wishlist.add(prod, prod._id);
+        //console.log("beforeeeeee....")
+        //console.log(prod[0]);
+       /* console.log("receiving.................",prod[0]._id);*/
+        //console.log("price:", prod[0].price);
         req.session.wishlist=wishlist;
         refreshWishlist(wishlist, req);
-        res.redirect(req.get('referer'));          
+        res.redirect(req.get('referer'));
+        
     });
+    
 });
+
 
 router.get('/deletewish/:id' , function(req, res, next){
     var product = req.params.id;

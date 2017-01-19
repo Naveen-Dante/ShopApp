@@ -14,7 +14,7 @@ module.exports=function Wishlist(oldCart){
         //storedItem.qty++;
         //console.log(storedItem.qty);
         storedItem.price=storedItem.item.price;
-    this.price=storedItem.price;
+        this.price=storedItem.price;
         //this.totalQty++;
     };
     
@@ -29,6 +29,5 @@ module.exports=function Wishlist(oldCart){
             arr.push(this.items[id]);
         }
         return arr;
-        
     };
 };
