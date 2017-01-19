@@ -3,7 +3,7 @@ var router = express.Router();
 var mongojs= require('mongojs');
 var ObjectId = mongojs.ObjectId;
 //var ObjectId = require("mongojs").ObjectId;
-var db = mongojs('mongodb://admin:admin@ds117859.mlab.com:17859/heroku_d1f53dlz', ['categories','cart','wishlist','featured','test']);
+var db = mongojs('mongodb://admin:admin@ds117859.mlab.com:17859/heroku_d1f53dlz', ['categories','cart','wishlist','featured']);
 var async = require('async');
 var Cart=require('../models/cart');
 var searchBar=require('../models/searchResult');
@@ -141,18 +141,24 @@ router.post('/?',function(req,res,next){
         res.render('shop/search', { title: 'Search', content:output, layout: "other",products: searchProducts});
         
     });*/
-    db.test.find({$text:{$search:searchTxt}},{score:{$meta:"textScore"}}).sort({score:{$meta:"textScore"}},function(err, docs){
+    db.categories.find({$text:{$search:searchTxt}},{score:{$meta:"textScore"}}).sort({score:{$meta:"textScore"}},function(err, docs){
             if(err){
                 console.log("search not working");
             }
             var searchProducts=[];
             console.log('data',docs);
-            var output="Here are Your Search Results Enjoy Shopping..!";
             var chunkSize=3;
             for(var i=0; i < docs.length; i+=chunkSize){
                 searchProducts.push(docs.slice(i, i+chunkSize)) ;  
             }
-        res.render('index', { title: 'Shop Online', content:output, layout: "other",products: searchProducts});
+            var output;
+                if(searchProducts.length>0){
+                    output="Here are Your Search Results Enjoy Shopping..!";
+                }
+            else{
+                output="We don't have any matching products.";
+            }
+        res.render('shop/search', { title: 'Shop Online', content:output, layout: "other",products: searchProducts});
             
         });
 });
