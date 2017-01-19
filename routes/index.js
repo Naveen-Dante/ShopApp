@@ -195,8 +195,8 @@ function refreshWishlist(wishlist, req){
 router.get('/wish-list/:id', function(req,res,next){
     var productId=req.params.id;
     console.log("receiving product id on click:",productId);
-    var query = {_id: req.params.id};
-    var query1 = {"_id": req.params.id};
+    var query = {_id: parseInt(req.params.id)};
+    var query1 = {"_id": parseInt(req.params.id)};
     console.log(query);
     var wishlist= new Wishlist(req.session.wishlist ? req.session.wishlist: {});
     db.categories.findOne(query,function(err,prod){
