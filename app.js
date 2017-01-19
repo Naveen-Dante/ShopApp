@@ -27,7 +27,7 @@ var tq = require('./routes/thankYou');
 var dummy = require('./routes/dummy');
 var wishlist = require('./routes/wish');
 var singleProduct = require('./routes/single-product');
-var dataseeder = require('./routes/dataseeder');
+//var dataseeder = require('./routes/dataseeder');
 
 var app = express();
 require('./config/passport');
@@ -89,7 +89,7 @@ app.use('/tq', tq);
 app.use('/wishlist', wishlist);
 app.use('/dummy', dummy);
 app.use('/product', singleProduct);
-app.use('/add',dataseeder);
+//app.use('/add',dataseeder);
 app.use('/', index);
 
 
