@@ -226,9 +226,8 @@ router.get('/:id',function(req,res,next){
 });
 
 router.get('/', function(req, res, next) {
-    
     var successMsg = req.flash('success')[0];
-    db.categories.find({category:deptName},function(err, docs){
+    db.categories.find({category:'featured'},function(err, docs){
         if(err){
            return res.redirect('/');
         }
