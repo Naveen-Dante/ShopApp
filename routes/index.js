@@ -289,7 +289,6 @@ router.get('/', function(req, res, next) {
   //fetching data from models folder............
     var successMsg = req.flash('success')[0];
          res.render('index', { title: 'Shop Online',successMsg: successMsg, noMessages: !successMsg});
-    }); 
 });
 
 router.post('/:id',function(req,res,next){
