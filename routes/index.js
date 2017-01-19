@@ -92,7 +92,7 @@ router.get('/delete/:id', function(req, res, next){
 router.post('/?',function(req,res,next){
     console.log('In search');
     var searchTxt=req.body.searchbar;
-    console.log(searchTxt);
+    /*console.log(searchTxt);
     var searchArray=[];
     var searchArray=searchTxt.split(" ");
     var mixArr=[];  
@@ -139,8 +139,20 @@ router.post('/?',function(req,res,next){
             output="We don't have any matching products.";
         }
         res.render('shop/search', { title: 'Search', content:output, layout: "other",products: searchProducts});
-    });
+        
+    });*/
+    db.test.find({$text:{$search:searchTxt}},{score:{$meta:"textScore"}}).sort({score:{$meta:"textScore"}},function(err, docs){
+            var searchProducts=[];
+            var output="Here are Your Search Results Enjoy Shopping..!";
+            var chunkSize=3;
+            for(var i=0; i < docs.length; i+=chunkSize){
+                searchProducts.push(docs.slice(i, i+chunkSize)) ;  
+            }
+        res.render('index', { title: 'Shop Online', content:output, layout: "other",products: searchProducts});
+            
+        });
 });
+
 
 function refreshWishlist(wishlist, req){
     if(req.isAuthenticated()){
