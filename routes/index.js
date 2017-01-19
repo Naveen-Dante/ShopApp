@@ -195,21 +195,34 @@ function refreshWishlist(wishlist, req){
 router.get('/wish-list/:id', function(req,res,next){
     var productId=req.params.id;
     console.log("receiving product id on click:",productId);
-    
+    var query = {_id: req.params.id};
+    var query1 = {"_id": req.params.id};
+    console.log(query);
     var wishlist= new Wishlist(req.session.wishlist ? req.session.wishlist: {});
-    db.categories.findOne({"_id":req.params.id},function(err,prod){
+    db.categories.findOne(query,function(err,prod){
         if(err)
         {    
             return res.redirect('/');
         }
-        console.log("Wished",prod);
-        return res.redirect('/');
+        console.log("In findOne",prod);
+        
             //wishlist.add(prod, prod.title);
             //req.session.wishlist=wishlist;
             //refreshWishlist(wishlist, req);
             //res.redirect(req.get('referer'));
           
     });
+    db.categories.find(query,function(err,prod){
+        console.log("In Find",prod);
+    });
+    db.categories.find(query1,function(err,prod){
+        console.log("In Find with quotes",prod);
+    });
+    db.categories.findOne(query1,function(err,prod){
+        console.log("In FindOne with quotes",prod);
+    });
+    
+    
     
 });
 
