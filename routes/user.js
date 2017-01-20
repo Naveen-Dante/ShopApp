@@ -48,10 +48,10 @@ router.get('/orders',isLoggedIn, function(req, res, next){
             }
             //var cart= new Cart(req.session.cart ? req.session.cart: {});
             console.log("Orders ",orders);
+            res.render('user/orders',{layout:'other',orders:orders, title:'History'});
         }    
     });
     console.log("Orders after db",orders);
-    res.render('user/orders',{layout:'other',orders:orders, title:'History'});
 });
 
 router.get('/logout', isLoggedIn, function(req, res, next){

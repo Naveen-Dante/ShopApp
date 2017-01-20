@@ -1,6 +1,6 @@
 <div class="container">
-    <h2 align="center">History</h2>
-    <!--{{#if orders}}-->
+    <h2 align="center"></h2>
+    {{#if orders}}
         {{#each orders}}
             <div class="panel panel-primary">
                 <div class="panel-heading">
@@ -15,7 +15,7 @@
                                 <a href="/product/{{this.item._id}}"><img src="{{this.item.url}}" alt="No picture available" width="230px" ></a>
                             </div>
                             <div class="col-md-3"><!-- product details-->
-                                <a href="/product/{{this.item._id}}"><h5><span style="text-transform: none; font-size:25px">{{this.item.title}}</span></h5></a>
+                                <a href="/product/{{this..item._id}}"><h5><span style="text-transform: none; font-size:25px">{{this.item.title}}</span></h5></a>
                             </div>
                             <div class="col-md-6">
                                 <div class="row">
@@ -41,9 +41,9 @@
                 </div>
             </div>
         {{/each}}
-    <!--{{else}}-->
-        <!--<div class="container">
+    {{else}}
+        <div class="container">
                 <h3>No Orders placed!</h3>
-        </div>-->
-    <!--{{/if}}-->
+        </div>
+    {{/if}}
 </div>
