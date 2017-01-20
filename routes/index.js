@@ -246,7 +246,7 @@ router.get('/:id',function(req,res,next){
         for(var i=0; i < docs.length; i+=chunkSize){
             productChunks.push(docs.slice(i, i+chunkSize));
         }
-        res.render('shop/shop',{title: deptName,layout:"other",category: deptName, dept:deptName,sub_category:subdept,products: productChunks});
+        res.render('shop/category',{title: deptName,layout:"other",category: deptName, dept:deptName,products: productChunks});
     });
 });
 
