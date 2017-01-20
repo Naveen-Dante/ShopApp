@@ -36,7 +36,7 @@ router.get('/orders',isLoggedIn, function(req, res, next){
     var orders = [];
     db.userorders.find({email:req.user.email},function(err,docs){
         if(docs){
-            //console.log("Order",docs[0].order);
+            console.log("Order",docs);
             for(var i =0; i< docs.length;i++){
                 var oname = "Order "+i;
                 var cart1 = new Cart(docs[i].order); 
