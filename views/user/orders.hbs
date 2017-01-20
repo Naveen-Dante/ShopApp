@@ -12,10 +12,10 @@
                     {{#each this.cart}}
                         <div class="row" id="cart-row">
                             <div class="col-md-3"><!-- image div -->
-                                <a href="/product/{{this.item._id}}"><img src="{{this.item.url}}" alt="No picture available" width="230px" ></a>
+                                <a href="/product/{{this.title}}"><img src="{{this.item.url}}" alt="No picture available" width="230px" ></a>
                             </div>
                             <div class="col-md-3"><!-- product details-->
-                                <a href="/product/{{this..item._id}}"><h5><span style="text-transform: none; font-size:25px">{{this.item.title}}</span></h5></a>
+                                <a href="/product/{{this.title}}"><h5><span style="text-transform: none; font-size:25px">{{this.item.title}}</span></h5></a>
                             </div>
                             <div class="col-md-6">
                                 <div class="row">

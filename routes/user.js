@@ -45,10 +45,12 @@ router.get('/orders',isLoggedIn, function(req, res, next){
                 console.log("Cart",cart);
                 var totalPrice = cart1.totalPrice;
                 orders.push({name: oname, cart:cart, totalPrice:cart1.totalPrice});
+                if(i==docs.length){
+                    res.render('user/orders',{layout:'other',orders:orders, title:'History'});
+                }
             }
             //var cart= new Cart(req.session.cart ? req.session.cart: {});
-            console.log("Orders ",orders);
-            res.render('user/orders',{layout:'other',orders:orders, title:'History'});
+
         }    
     });
     console.log("Orders after db",orders);
