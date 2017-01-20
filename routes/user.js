@@ -45,7 +45,8 @@ router.get('/orders',isLoggedIn, function(req, res, next){
                 console.log("Cart",cart);
                 var totalPrice = cart1.totalPrice;
                 orders.push({name: oname, cart:cart, totalPrice:cart1.totalPrice});
-                if(i==docs.length){
+                console.log(i+" : "+docs.length);
+                if(i==docs.length-1){
                     res.render('user/orders',{layout:'other',orders:orders, title:'History'});
                 }
             }
