@@ -39,7 +39,7 @@ router.get('/orders',isLoggedIn, function(req, res, next){
             console.log("Docs",docs);
             console.log("Docs order",docs[0].order);
             for(var i =0; i< docs.length;i++){
-                var oname = "Order "+i;
+                var oname = "Order "+(i+1);
                 var cart1 = new Cart(docs[i].order); 
                 var cart = cart1.generateArray();
                 console.log("Cart",cart);
@@ -47,7 +47,7 @@ router.get('/orders',isLoggedIn, function(req, res, next){
                 orders.push({name: oname, cart:cart, totalPrice:cart1.totalPrice});
             }
             //var cart= new Cart(req.session.cart ? req.session.cart: {});
-            console.log("Orders ",JSON.stringify(orders));
+            console.log("Orders ",orders);
         }    
     });
     res.render('user/orders',{layout:'other',orders:orders, title:'History'});
