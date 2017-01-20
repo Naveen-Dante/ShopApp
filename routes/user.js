@@ -36,13 +36,15 @@ router.get('/orders',isLoggedIn, function(req, res, next){
     var orders = [];
     db.userorders.find({email:req.user.email},function(err,docs){
         if(docs){
-            console.log("Order",docs);
+            console.log("Docs",docs);
+            console.log("Docs order",docs[0].order);
             for(var i =0; i< docs.length;i++){
                 var oname = "Order "+i;
                 var cart1 = new Cart(docs[i].order); 
                 var cart = cart1.generateArray();
+                console.log("Cart",cart);
                 var totalPrice = cart1.totalPrice;
-                orders.push({name: oname, cart, totalPrice:cart1.totalPrice});
+                orders.push({name: oname, cart:cart, totalPrice:cart1.totalPrice});
             }
             //var cart= new Cart(req.session.cart ? req.session.cart: {});
             console.log("Orders ",JSON.stringify(orders));
