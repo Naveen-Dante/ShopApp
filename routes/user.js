@@ -50,6 +50,7 @@ router.get('/orders',isLoggedIn, function(req, res, next){
             console.log("Orders ",orders);
         }    
     });
+    console.log("Orders after db",orders);
     res.render('user/orders',{layout:'other',orders:orders, title:'History'});
 });
 
